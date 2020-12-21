@@ -4,7 +4,11 @@ import com.example.demo.model.Tourist;
 import com.example.demo.repository.TouristRepository;
 import com.example.demo.service.TouristService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
@@ -16,17 +20,23 @@ public class TouristController {
     private TouristService touristService;
 
     @GetMapping("/get")
-    public List<Tourist> getTourists() {
-        return touristService.getTourists();
+    public ResponseEntity<List<Tourist>> getTourists() {
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(touristService.getTourists());
     }
 
     @PostMapping("/add")
-    public List<Tourist> addTourist(@RequestBody Tourist tourist) {
-        return touristService.addTourist(tourist);
+    public ResponseEntity<List<Tourist>> addTourist(@RequestBody Tourist tourist) {
+        return ResponseEntity.created(UriComponentsBuilder
+                .fromHttpUrl(ServletUriComponentsBuilder.
+                        fromCurrentRequestUri().toUriString())
+                .path("").query("firstName={firstName}").build().toUri())
+                .body(touristService.addTourist(tourist));
     }
 
     @DeleteMapping("/delete")
-    public List<Tourist> deleteTouristById(@RequestParam int id) {
-        return touristService.deleteTouristById(id);
+    public ResponseEntity<List<Tourist>> deleteTouristById(@RequestParam int id) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(touristService.deleteTouristById(id));
     }
 }
