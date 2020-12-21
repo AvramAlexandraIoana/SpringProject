@@ -40,4 +40,10 @@ public class TouristController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(touristService.deleteTouristById(id));
     }
+
+    @GetMapping("/getTouristByFirstName")
+    public ResponseEntity<List<Tourist>> getTouristByFirstName(@RequestParam  String firstName) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                        .body(touristService.getTouristByFirstName(firstName));
+    }
 }

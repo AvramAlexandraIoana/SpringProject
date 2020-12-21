@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.model.Tourist;
 import com.example.demo.queries.TouristQueries;
+import com.example.demo.utils.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,5 +30,13 @@ public class TouristRepository {
     public List<Tourist> deleteTouristById(int id) {
         jdbcTemplate.update(TouristQueries.DELETE_TOURIST_SQL, id);
         return jdbcTemplate.query(TouristQueries.GET_TOURIST_SQL, new BeanPropertyRowMapper<>(Tourist.class));
+    }
+
+    public List<Tourist> getTouristByFirstName(String firstName) {
+        List<Tourist> touristList = jdbcTemplate.query(TouristQueries.GET_TOURIST_BYFIRSTNAME_SQL, new BeanPropertyRowMapper<>(Tourist.class), firstName);
+        if (touristList.isEmpty()) {
+            throw new ObjectNotFoundException("First Name doesn't exist!!");
+        }
+        return touristList;
     }
 }

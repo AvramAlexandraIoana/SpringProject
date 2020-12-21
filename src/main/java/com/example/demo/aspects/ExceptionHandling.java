@@ -1,6 +1,7 @@
 package com.example.demo.aspects;
 
 import com.example.demo.utils.ErrorResponse;
+import com.example.demo.utils.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -27,5 +28,13 @@ public class ExceptionHandling {
         body.put("timestamp", LocalDate.now());
         body.put("errors", bodyResponse);
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<Object> retriveTouristValidation(ObjectNotFoundException exception) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDate.now());
+        body.put("errors", exception.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 }
