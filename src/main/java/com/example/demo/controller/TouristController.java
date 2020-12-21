@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class TouristController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<List<Tourist>> addTourist(@RequestBody Tourist tourist) {
+    public ResponseEntity<List<Tourist>> addTourist(@RequestBody @Valid Tourist tourist) {
         return ResponseEntity.created(UriComponentsBuilder
                 .fromHttpUrl(ServletUriComponentsBuilder.
                         fromCurrentRequestUri().toUriString())

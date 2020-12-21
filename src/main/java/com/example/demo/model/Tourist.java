@@ -2,12 +2,18 @@ package com.example.demo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Tourist {
     private int touristId;
+
+    @NotNull(message = "First name cannot be null!")
     private String firstName;
+
+    @NotNull(message = "Last name cannot be null!")
     private String lastName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
