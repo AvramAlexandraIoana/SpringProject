@@ -32,22 +32,16 @@ public class TouristRepository {
     }
 
     public Tourist addTourist(Tourist tourist){
-
         KeyHolder holder = new GeneratedKeyHolder();
-        jdbcTemplate.update(new PreparedStatementCreator() {
-            @Override
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement(TouristQueries.ADD_TOURIST_SQL, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, tourist.getFirstName());
-                ps.setString(2, tourist.getLastName());
-                ps.setDate(3, new java.sql.Date(tourist.getDateOfBirth().getTime()));
-                ps.setDate(4, new java.sql.Date(tourist.getCreatedOn().getTime()));
-                return ps;
-            }
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(TouristQueries.ADD_TOURIST_SQL, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, tourist.getFirstName());
+            ps.setString(2, tourist.getLastName());
+            ps.setDate(3, new java.sql.Date(tourist.getDateOfBirth().getTime()));
+            ps.setDate(4, new java.sql.Date(tourist.getCreatedOn().getTime()));
+            return ps;
         }, holder);
-
-        int newTouristId = holder.getKey().intValue();
-        tourist.setTouristId(newTouristId);
+        tourist.setTouristId(holder.getKey().intValue());
         return tourist;
     }
 
