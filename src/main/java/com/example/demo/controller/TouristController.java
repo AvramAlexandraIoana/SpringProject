@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class TouristController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<List<Tourist>> addTourist(@RequestBody @Valid Tourist tourist) {
+    public ResponseEntity<Tourist> addTourist(@RequestBody @Valid Tourist tourist) {
         return ResponseEntity.created(UriComponentsBuilder
                 .fromHttpUrl(ServletUriComponentsBuilder.
                         fromCurrentRequestUri().toUriString())

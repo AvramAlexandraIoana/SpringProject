@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class ExceptionHandling {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Object> touristContentValidation(MethodArgumentNotValidException exception) {
+    public ResponseEntity<Object> contentValidation(MethodArgumentNotValidException exception) {
         Map<String, Object> body = new HashMap<>();
         List<ObjectError> errors = exception.getAllErrors();
         List<ErrorResponse> bodyResponse = errors.stream()
@@ -31,10 +32,18 @@ public class ExceptionHandling {
     }
 
     @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<Object> retriveTouristValidation(ObjectNotFoundException exception) {
+    public ResponseEntity<Object> retriveValidation(ObjectNotFoundException exception) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDate.now());
         body.put("errors", exception.getMessage());
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<Object> databaseValidation(SQLException exception) {
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDate.now());
+        body.put("errors", exception.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 }

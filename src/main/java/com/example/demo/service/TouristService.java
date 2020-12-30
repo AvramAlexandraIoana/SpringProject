@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,7 +21,8 @@ public class TouristService {
         return touristRepository.getTourists();
     }
 
-    public List<Tourist> addTourist(Tourist tourist) {
+    public Tourist addTourist(Tourist tourist){
+        tourist.setCreatedOn(new Date());
         return touristRepository.addTourist(tourist);
     }
 
