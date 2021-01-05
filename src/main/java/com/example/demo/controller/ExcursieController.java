@@ -31,7 +31,7 @@ public class ExcursieController {
                 fromHttpUrl(ServletUriComponentsBuilder.
                         fromCurrentRequestUri().
                         toUriString())
-                .path("").query("denumire={denumire}").build(excursie.getDenumire()))
+                .replacePath("excursie/get").build(excursie.getDenumire()))
                 .body(excursieService.addExcursie(excursie));
     }
 

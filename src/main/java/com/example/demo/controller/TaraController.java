@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -30,9 +31,8 @@ public class TaraController {
     public ResponseEntity<Tara> addTara(@RequestBody @Valid Tara tara) {
         return ResponseEntity.created(UriComponentsBuilder.
                 fromHttpUrl(ServletUriComponentsBuilder.
-                        fromCurrentRequestUri().
-                        toUriString())
-                .path("").query("nume={nume}").build(tara.getNume()))
+                        fromCurrentRequestUri().toUriString())
+                .replacePath("tara/get").build(tara.getNume()))
                 .body(taraService.addTara(tara));
     }
 

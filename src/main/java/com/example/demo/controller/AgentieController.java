@@ -32,7 +32,7 @@ public class AgentieController {
                 fromHttpUrl(ServletUriComponentsBuilder.
                         fromCurrentRequestUri().
                         toUriString())
-                .path("").query("denumire={denumire}").build(agentie.getDenumire()))
+                .replacePath("agentie/get").build(agentie.getDenumire()))
                 .body(agentieService.addAgentie(agentie));
     }
 

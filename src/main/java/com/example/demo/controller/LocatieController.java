@@ -32,7 +32,7 @@ public class LocatieController {
                 fromHttpUrl(ServletUriComponentsBuilder.
                         fromCurrentRequestUri().
                         toUriString())
-                .path("").query("oras={oras}").build(locatie.getOras()))
+                .replacePath("locatie/get").build(locatie.getOras()))
                 .body(locatieService.addLocatie(locatie));
     }
 

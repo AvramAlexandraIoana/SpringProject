@@ -34,7 +34,7 @@ public class TuristController {
                 fromHttpUrl(ServletUriComponentsBuilder.
                         fromCurrentRequestUri().
                         toUriString())
-                .path("").query("nume={nume}").build(turist.getNume()))
+                .replacePath("turist/get").build(turist.getNume()))
                 .body(turistService.addTurist(turist));
     }
 

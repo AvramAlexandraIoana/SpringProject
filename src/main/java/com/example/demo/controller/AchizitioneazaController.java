@@ -33,7 +33,7 @@ public class AchizitioneazaController {
                 fromHttpUrl(ServletUriComponentsBuilder.
                         fromCurrentRequestUri().
                         toUriString())
-                .path("").query("dataAchizitie={dataAchizitie}").build(achizitioneaza.getDataAchizitie()))
+                .replacePath("achizitioneaza/get").build(achizitioneaza.getDataAchizitie()))
                 .body(achizitioneazaService.addAchizitie(achizitioneaza));
     }
 
