@@ -49,10 +49,16 @@ public class TuristController {
         return  ResponseEntity.status(HttpStatus.OK)
                 .body(turistService.deleteTurist(id));
     }
-
     @GetMapping("/getTuristByFirstName")
     public ResponseEntity<List<Turist>> getTuristByFirstName(@RequestParam  String nume) {
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(turistService.getTuristByFirstName(nume));
     }
+
+    @GetMapping("/orderTuristByName")
+    public ResponseEntity<List<Turist>> orderTuristByName(@RequestParam String type) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(turistService.orderTuristByName(type));
+    }
+
 }

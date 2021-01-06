@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -66,11 +67,18 @@ public class TuristRepository {
     }
 
     public List<Turist> getTuristByFirstName(String  nume) {
-        List<Turist> touristList = jdbcTemplate.query(TuristQueries.GET_TURIST_BYFIRSTNAME_SQL, new BeanPropertyRowMapper<>(Turist.class), nume);
-        if (touristList.isEmpty()) {
+        List<Turist> findTuristList = jdbcTemplate.query(TuristQueries.GET_TURIST_BYFIRSTNAME_SQL, new BeanPropertyRowMapper<>(Turist.class), nume);
+        if (findTuristList.isEmpty()) {
             throw new ObjectNotFoundException("Nu exista turisti cu acest nume!");
         }
         logger.info("Sunt preluati turistii cu numele", nume);
-        return touristList;
+        return findTuristList;
+    }
+
+    public List<Turist> orderTuristByName(String type) {
+        List<Turist> turistList = (type.equals("asc")) ? jdbcTemplate.query(TuristQueries.ORDER_TURIST_ASC_SQL, new BeanPropertyRowMapper<>(Turist.class))
+                                                : jdbcTemplate.query(TuristQueries.ORDER_TURIST_DESC_SQL, new BeanPropertyRowMapper<>(Turist.class));
+        logger.info("Sunt preluati din repo turistii ordonati " + type + " dupa nume {}", turistList);
+        return turistList;
     }
 }

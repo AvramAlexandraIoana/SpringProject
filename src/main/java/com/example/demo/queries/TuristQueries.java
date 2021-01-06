@@ -7,5 +7,8 @@ public class TuristQueries {
     public final static String DELETE_TURIST_SQL = "DELETE FROM turist WHERE idTurist = ?";
     public final static String GET_TURIST_BYFIRSTNAME_SQL = "SELECT * FROM turist WHERE nume = ?";
     public final static String FIND_TURIST_BYID_SQL = "SELECT * FROM turist WHERE idTurist = ?";
+    public final static String ORDER_TURIST_ASC_SQL = "SELECT * FROM turist ORDER BY nume ASC";
+    public final static String ORDER_TURIST_DESC_SQL = "SELECT * FROM turist ORDER BY nume DESC";
+
 
 }

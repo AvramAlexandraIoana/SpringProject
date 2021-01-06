@@ -25,7 +25,6 @@ public class TuristService {
     }
 
     public Turist updateTurist(Turist turist) {
-
         return turistRepository.updateTurist(turist);
     }
 
@@ -35,5 +34,9 @@ public class TuristService {
 
     public List<Turist> getTuristByFirstName(String  nume) {
         return turistRepository.getTuristByFirstName(nume);
+    }
+
+    public List<Turist> orderTuristByName(String type) {
+        return turistRepository.orderTuristByName(type);
     }
 }
