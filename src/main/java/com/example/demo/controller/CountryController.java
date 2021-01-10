@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.CountryRequest;
+import com.example.demo.dto.CountryUpdate;
 import com.example.demo.mapper.CountryMapper;
 import com.example.demo.model.Country;
 import com.example.demo.service.CountryService;
@@ -49,9 +50,9 @@ public class CountryController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Country> update(@RequestBody @Valid Country country) {
+    public ResponseEntity<Country> update(@RequestBody @Valid CountryUpdate countryUpdate) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(countryService.update(country));
+                .body(countryService.update(countryMapper.countryUpdateToCountry(countryUpdate)));
     }
 
     @DeleteMapping("/delete")

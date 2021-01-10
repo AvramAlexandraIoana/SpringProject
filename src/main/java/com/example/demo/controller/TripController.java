@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.TripRequest;
+import com.example.demo.dto.TripUpdate;
 import com.example.demo.mapper.TripMapper;
 import com.example.demo.model.Trip;
 import com.example.demo.service.TripService;
@@ -45,9 +46,9 @@ public class TripController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Trip> update(@RequestBody @Valid Trip trip) {
+    public ResponseEntity<Trip> update(@RequestBody @Valid TripUpdate tripUpdate) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(tripService.update(trip));
+                .body(tripService.update(tripMapper.tripUpdateToTrip(tripUpdate)));
     }
 
     @DeleteMapping("/delete")

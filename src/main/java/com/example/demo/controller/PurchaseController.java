@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.LocationRequest;
 import com.example.demo.dto.PurchaseRequest;
+import com.example.demo.dto.PurchaseUpdate;
 import com.example.demo.mapper.LocationMapper;
 import com.example.demo.mapper.PurchaseMapper;
 import com.example.demo.model.Location;
@@ -51,9 +52,9 @@ public class PurchaseController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Purchase> update(@RequestBody @Valid Purchase purchase) {
+    public ResponseEntity<Purchase> update(@RequestBody @Valid PurchaseUpdate purchaseUpdate) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(purchaseService.update(purchase));
+                .body(purchaseService.update(purchaseMapper.purchaseUpdateToPurchase(purchaseUpdate)));
     }
 
     @DeleteMapping("/delete")

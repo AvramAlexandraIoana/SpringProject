@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.LocationRequest;
 import com.example.demo.dto.TouristRequest;
+import com.example.demo.dto.TouristUpdate;
 import com.example.demo.mapper.LocationMapper;
 import com.example.demo.mapper.TouristMapper;
 import com.example.demo.model.Location;
@@ -51,9 +52,9 @@ public class TouristController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Tourist> update(@RequestBody @Valid Tourist tourist) {
+    public ResponseEntity<Tourist> update(@RequestBody @Valid TouristUpdate touristUpdate) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(touristService.update(tourist));
+                .body(touristService.update(touristMapper.touristUpdateToTourist(touristUpdate)));
     }
 
     @DeleteMapping("/delete")

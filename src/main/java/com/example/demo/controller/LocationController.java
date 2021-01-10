@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.LocationRequest;
+import com.example.demo.dto.LocationUpdate;
 import com.example.demo.mapper.LocationMapper;
 import com.example.demo.model.Location;
 import com.example.demo.service.LocationService;
@@ -46,9 +47,9 @@ public class LocationController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Location> update(@RequestBody @Valid Location location) {
+    public ResponseEntity<Location> update(@RequestBody @Valid LocationUpdate locationUpdate) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(locationService.update(location));
+                .body(locationService.update(locationMapper.locationUpdateToLocation(locationUpdate)));
     }
 
     @DeleteMapping("/delete")

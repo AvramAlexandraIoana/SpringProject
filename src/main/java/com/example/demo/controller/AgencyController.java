@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AgencyRequest;
+import com.example.demo.dto.AgencyUpdate;
 import com.example.demo.dto.LocationRequest;
 import com.example.demo.mapper.AgencyMapper;
 import com.example.demo.mapper.LocationMapper;
@@ -50,9 +51,9 @@ public class AgencyController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Agency> update(@RequestBody @Valid Agency agency) {
+    public ResponseEntity<Agency> update(@RequestBody @Valid AgencyUpdate agencyUpdate) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(agencyService.update(agency));
+                .body(agencyService.update(agencyMapper.agencyUpdateToAgency(agencyUpdate)));
     }
 
     @DeleteMapping("/delete")
